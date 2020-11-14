@@ -60,7 +60,9 @@ config :blog, BlogWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/blog_web/(live|views)/.*(ex)$",
+      ~r"lib/blog_web/(live|views|controllers)/.*(ex)$",
+      ~r"lib/blog/.*(ex)$",
+      ~r"lib/blog/datasets/.*(ex)$",
       ~r"lib/blog_web/templates/.*(eex)$"
     ]
   ]

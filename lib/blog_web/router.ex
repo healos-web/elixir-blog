@@ -19,6 +19,12 @@ defmodule BlogWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", BlogWeb do
+    pipe_through :api
+
+    resources "/categories", CategoryController, except: [:edit, :new]
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", BlogWeb do
   #   pipe_through :api
