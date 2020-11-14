@@ -1,8 +1,8 @@
 defmodule BlogWeb.CategoryControllerTest do
   use BlogWeb.ConnCase
 
-  alias Blog.Datasets
-  alias Blog.Datasets.Category
+  alias Blog.Datasets.Categories
+  alias Blog.Datasets.Categories.Category
 
   @create_attrs %{
     description: "some description",
@@ -19,7 +19,7 @@ defmodule BlogWeb.CategoryControllerTest do
   @invalid_attrs %{description: nil, name: nil, need_moderation: nil, tag: nil}
 
   def fixture(:category) do
-    {:ok, category} = Datasets.create_category(@create_attrs)
+    {:ok, category} = Categories.create_category(@create_attrs)
     category
   end
 

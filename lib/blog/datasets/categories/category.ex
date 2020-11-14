@@ -1,4 +1,4 @@
-defmodule Blog.Datasets.Category do
+defmodule Blog.Datasets.Categories.Category do
   use Ecto.Schema
   import Ecto.Changeset
 
