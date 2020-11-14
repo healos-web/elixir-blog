@@ -23,6 +23,7 @@ defmodule BlogWeb.Router do
     pipe_through :api
 
     resources "/categories", CategoryController, except: [:edit, :new]
+    resources "/posts", PostController, except: [:edit, :new]
   end
 
   # Other scopes may use custom stacks.

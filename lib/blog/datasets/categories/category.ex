@@ -9,6 +9,9 @@ defmodule Blog.Datasets.Categories.Category do
     field :tag, :string
     field :keywords, {:array, :string}
 
+    has_many :posts_categories, Blog.Datasets.PostsCategory
+    has_many :posts, through: [:posts_categories, :posts]
+
     timestamps()
   end
 
