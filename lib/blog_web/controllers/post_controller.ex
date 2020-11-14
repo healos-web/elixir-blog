@@ -3,11 +3,12 @@ defmodule BlogWeb.PostController do
 
   alias Blog.Datasets.Posts
   alias Blog.Datasets.Posts.Post
+  alias Blog.Datasets.Posts.Services
 
   action_fallback BlogWeb.FallbackController
 
-  def index(conn, _params) do
-    posts = Posts.list_posts()
+  def index(conn, params) do
+    posts = Services.FilterPosts.call(params)
     render(conn, "index.json", posts: posts)
   end
 
