@@ -14,7 +14,7 @@ defmodule Blog.Datasets.Posts.Services.FilterPosts do
       Map.keys(params),
       query,
       fn filter, acc_query -> apply_filter(acc_query, filter, params[filter]) end
-    ) 
+    )
   end
 
   defp apply_filter(query, filter, value) do

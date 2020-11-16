@@ -31,9 +31,20 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
   end
 
   defp prepare_text(text) do
-    String.replace(String.downcase(text), ~r/(,|\.|\!|\?)/, " ")
+    String.replace(String.downcase(text), ~r/(,|\.|\!|\?|\"|\')/, " ")
   end
 
   defp update_status(post) do
+    need_moderation_category = (
+      (from cat in Ecto.assoc(post, :categories), where: cat.need_moderation == true)
+      |> Repo.one
+    )
+
+    if (need_moderation_category) do
+      Post.changeset(post, %{status: "require_moderation"})
+    else
+      Post.changeset(post, %{status: "published", published_at: DateTime.utc_now})
+    end
+    |> Repo.update
   end
 end
