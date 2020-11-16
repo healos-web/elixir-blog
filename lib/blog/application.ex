@@ -14,7 +14,13 @@ defmodule Blog.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Blog.PubSub},
       # Start the Endpoint (http/https)
-      BlogWeb.Endpoint
+      BlogWeb.Endpoint,
+      # Start categorizer
+      %{
+        id: Blog.Categorizer.Server,
+        start: {Blog.Categorizer.Server, :start_link, [[]]}
+      }
+      
       # Start a worker by calling: Blog.Worker.start_link(arg)
       # {Blog.Worker, arg}
     ]

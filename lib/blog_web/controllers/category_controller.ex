@@ -3,6 +3,7 @@ defmodule BlogWeb.CategoryController do
 
   alias Blog.Datasets.Categories
   alias Blog.Datasets.Categories.Category
+  alias Blog.Categorizer.Server
 
   action_fallback BlogWeb.FallbackController
 
@@ -13,6 +14,8 @@ defmodule BlogWeb.CategoryController do
 
   def create(conn, %{"category" => category_params}) do
     with {:ok, %Category{} = category} <- Categories.create_category(category_params) do
+      Blog.Categorizer.Server.update_index(%{update_type: "add", category: category})
+      
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.category_path(conn, :show, category))
@@ -27,8 +30,11 @@ defmodule BlogWeb.CategoryController do
 
   def update(conn, %{"id" => id, "category" => category_params}) do
     category = Categories.get_category!(id)
+    old_category = category
 
     with {:ok, %Category{} = category} <- Categories.update_category(category, category_params) do
+      Blog.Categorizer.Server.update_index(%{update_type: "update", old_category: old_category, category: category})
+
       render(conn, "show.json", category: category)
     end
   end
@@ -37,6 +43,8 @@ defmodule BlogWeb.CategoryController do
     category = Categories.get_category!(id)
 
     with {:ok, %Category{}} <- Categories.delete_category(category) do
+      Blog.Categorizer.Server.update_index(%{update_type: "delete", category: category})
+      
       send_resp(conn, :no_content, "")
     end
   end
