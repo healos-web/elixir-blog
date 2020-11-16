@@ -31,6 +31,13 @@ defmodule Blog.Categorizer.Server do
     GenServer.call(__MODULE__, :get_index)
   end
 
+  @doc """
+  Clear index
+  """
+  def clear_index do
+    GenServer.cast(__MODULE__, {:clear_index})
+  end
+
   ## Defining GenServer Callbacks
 
   @impl true
@@ -52,6 +59,11 @@ defmodule Blog.Categorizer.Server do
     Services.PostsCategorizer.call(index, opts)
 
     {:noreply, index}
+  end
+
+  @impl true
+  def handle_cast({:clear_index}, index) do
+    {:noreply, %{}}
   end
 
   @impl true

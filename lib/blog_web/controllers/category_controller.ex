@@ -44,7 +44,6 @@ defmodule BlogWeb.CategoryController do
 
     with {:ok, %Category{}} <- Categories.delete_category(category) do
       Blog.Categorizer.Server.update_index(%{update_type: "delete", category: category})
-      
       send_resp(conn, :no_content, "")
     end
   end

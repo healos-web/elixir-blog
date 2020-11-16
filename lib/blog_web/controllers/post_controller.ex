@@ -14,8 +14,10 @@ defmodule BlogWeb.PostController do
   end
 
   def create(conn, %{"post" => post_params}) do
+    post_params = Map.put(post_params, "status", "draft")
+
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
-      Blog.Categorizer.Server.categorize_post(Blog.CategorizeServer, %{post: post})
+      Blog.Categorizer.Server.categorize_post(post)
 
       conn
       |> put_status(:created)

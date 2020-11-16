@@ -7,9 +7,9 @@ defmodule Blog.Categorizer.Services.BuildIndex do
   end
 
   defp add_to_index(cat, index) do
-    Enum.reduce(cat.keywords, index, fn keyword, updated_index ->
-      Map.put_new(updated_index, keyword, [])
-      Map.put(updated_index, keyword, [cat.id | updated_index[keyword]])
+    Enum.reduce(cat.keywords, index, fn keyword, ind ->
+      ind = Map.put_new(ind, keyword, [])
+      Map.put(ind, keyword, [cat.id | ind[keyword]])
     end)
   end
 end

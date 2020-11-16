@@ -1,15 +1,14 @@
-defmodule Blog.Categorizer.Services.UpdateIndex do  
-  def call(index, %{old_category: old_category, category: category, update_type: update_type}) do
-    case update_type do
-      "delete" ->
-        delete_category_from_index(index, category)
-      "add" ->
-        add_category_to_index(index, category)
-      "update" ->
-        update_category_in_index(index, old_category, category)
-      _ ->
-        index
-    end      
+defmodule Blog.Categorizer.Services.UpdateIndex do
+  def call(index, %{category: category, update_type: "add"}) do
+    add_category_to_index(index, category) 
+  end
+
+  def call(index, %{old_category: old_category, category: category, update_type: "update"}) do
+    update_category_in_index(index, old_category, category)
+  end
+  
+  def call(index, %{category: category, update_type: "delete"}) do
+    delete_category_from_index(index, category)
   end
 
   defp add_category_to_index(index, category) do
@@ -30,7 +29,7 @@ defmodule Blog.Categorizer.Services.UpdateIndex do
 
   defp add_to_keywords(index, keywords, value) do
     Enum.reduce(keywords, index, fn keyword, ind ->
-      Map.put_new(ind, keyword, [])
+      ind = Map.put_new(ind, keyword, [])
       Map.put(ind, keyword, [value | ind[keyword]])
     end)
   end
