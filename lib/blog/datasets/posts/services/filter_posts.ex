@@ -2,6 +2,8 @@ defmodule Blog.Datasets.Posts.Services.FilterPosts do
   import Ecto.Query
   alias Blog.Repo
   alias Blog.Datasets.Posts.Post
+  alias Blog.Datasets.PostsCategories.PostsCategory
+  alias Blog.Datasets.Categories.Category
   
   def call(params) do
     from(p in Post)
@@ -23,6 +25,10 @@ defmodule Blog.Datasets.Posts.Services.FilterPosts do
         from(p in query, where: ilike(p.title, ^"%#{value}%"))
       "status" ->
         from(p in query, where: p.status == ^value)
+      "categories_id" ->
+        from(p in query,
+          join: cat in assoc(p, :categories),
+          where: cat.id  )
       "created_at_from" ->
         from(p in query, where: p.inserted_at >= ^value)
       "created_at_to" ->

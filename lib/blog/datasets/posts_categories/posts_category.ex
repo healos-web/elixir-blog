@@ -1,9 +1,9 @@
-defmodule Blog.Datasets.PostsCategory do
+defmodule Blog.Datasets.PostsCategories.PostsCategory do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Blog.Repo.Datasets.Categories.Category
-  alias Blog.Repo.Datasets.Posts.Post
+  alias Blog.Datasets.Categories.Category
+  alias Blog.Datasets.Posts.Post
 
   schema "posts_categories" do
     belongs_to :post, Post

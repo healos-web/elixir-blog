@@ -1,6 +1,8 @@
 defmodule Blog.Datasets.Categories.Category do
   use Ecto.Schema
   import Ecto.Changeset
+  
+  alias Blog.Datasets.PostsCategories.PostsCategory
 
   schema "categories" do
     field :description, :string
@@ -9,8 +11,8 @@ defmodule Blog.Datasets.Categories.Category do
     field :tag, :string
     field :keywords, {:array, :string}
 
-    has_many :posts_categories, Blog.Datasets.PostsCategory
-    has_many :posts, through: [:posts_categories, :posts]
+    has_many :posts_categories, PostsCategory, on_delete: :delete_all
+    has_many :posts, through: [:posts_categories, :post]
 
     timestamps()
   end

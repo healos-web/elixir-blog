@@ -4,7 +4,7 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
   alias Blog.Repo
   alias Blog.Datasets.Categories.Category
   alias Blog.Datasets.Posts.Post
-  alias Blog.Datasets.PostsCategory
+  alias Blog.Datasets.PostsCategories.PostsCategory
   
   def call(index, post) do
     keywords = Map.keys(index)

@@ -57,9 +57,6 @@ config :blog, BlogWeb.Endpoint,
 # Watch static and templates for browser reloading.
 config :blog, BlogWeb.Endpoint,
   live_reload: [
-    dirs: [
-      "lib/blog/datasets",
-    ],
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg|txt)$",
       ~r"priv/gettext/.*(po)$",

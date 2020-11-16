@@ -15,6 +15,7 @@ defmodule BlogWeb.CategoryView do
       name: category.name,
       tag: category.tag,
       description: category.description,
+      keywords: category.keywords,
       need_moderation: category.need_moderation}
   end
 end
