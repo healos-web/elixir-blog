@@ -1,5 +1,1 @@
-import Ecto.Query
-
-use Autoalias
-
-alias Blog.Repo
+import_file_if_available ".iex.env.exs"

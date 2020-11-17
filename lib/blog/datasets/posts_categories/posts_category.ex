@@ -1,6 +1,5 @@
 defmodule Blog.Datasets.PostsCategories.PostsCategory do
   use Ecto.Schema
-  import Ecto.Changeset
 
   alias Blog.Datasets.Categories.Category
   alias Blog.Datasets.Posts.Post

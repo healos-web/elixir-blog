@@ -8,15 +8,17 @@ defmodule BlogWeb.CategoryControllerTest do
     description: "some description",
     name: "some name",
     need_moderation: true,
+    keywords: ["word"],
     tag: "some tag"
   }
   @update_attrs %{
     description: "some updated description",
     name: "some updated name",
     need_moderation: false,
+    keywords: ["word", "second word"],
     tag: "some updated tag"
   }
-  @invalid_attrs %{description: nil, name: nil, need_moderation: nil, tag: nil}
+  @invalid_attrs %{description: nil, name: nil, need_moderation: nil, tag: nil, keywords: []}
 
   def fixture(:category) do
     {:ok, category} = Categories.create_category(@create_attrs)
@@ -46,6 +48,7 @@ defmodule BlogWeb.CategoryControllerTest do
                "description" => "some description",
                "name" => "some name",
                "need_moderation" => true,
+               "keywords" => ["word"],
                "tag" => "some tag"
              } = json_response(conn, 200)["data"]
     end
@@ -70,6 +73,7 @@ defmodule BlogWeb.CategoryControllerTest do
                "description" => "some updated description",
                "name" => "some updated name",
                "need_moderation" => false,
+               "keywords" => ["word", "second word"],
                "tag" => "some updated tag"
              } = json_response(conn, 200)["data"]
     end

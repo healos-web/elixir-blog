@@ -62,7 +62,7 @@ defmodule Blog.Categorizer.Server do
   end
 
   @impl true
-  def handle_cast({:clear_index}, index) do
+  def handle_cast({:clear_index}, _index) do
     {:noreply, %{}}
   end
 

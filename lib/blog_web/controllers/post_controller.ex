@@ -4,7 +4,6 @@ defmodule BlogWeb.PostController do
   alias Blog.Datasets.Posts
   alias Blog.Datasets.Posts.Post
   alias Blog.Datasets.Posts.Services
-  alias Blog.Categorizer.Server
 
   action_fallback BlogWeb.FallbackController
 

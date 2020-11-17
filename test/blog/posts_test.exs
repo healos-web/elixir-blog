@@ -6,8 +6,8 @@ defmodule Blog.PostsTest do
   describe "posts" do
     alias Blog.Datasets.Posts.Post
 
-    @valid_attrs %{published_at: ~N[2010-04-17 14:00:00], status: "some status", text: "some text", title: "some title"}
-    @update_attrs %{published_at: ~N[2011-05-18 15:01:01], status: "some updated status", text: "some updated text", title: "some updated title"}
+    @valid_attrs %{published_at: ~N[2010-04-17 14:00:00], status: "draft", text: "some text", title: "some title"}
+    @update_attrs %{published_at: ~N[2011-05-18 15:01:01], status: "published", text: "some updated text", title: "some updated title"}
     @invalid_attrs %{published_at: nil, status: nil, text: nil, title: nil}
 
     def post_fixture(attrs \\ %{}) do
@@ -32,7 +32,7 @@ defmodule Blog.PostsTest do
     test "create_post/1 with valid data creates a post" do
       assert {:ok, %Post{} = post} = Posts.create_post(@valid_attrs)
       assert post.published_at == ~N[2010-04-17 14:00:00]
-      assert post.status == "some status"
+      assert post.status == "draft"
       assert post.text == "some text"
       assert post.title == "some title"
     end
@@ -45,7 +45,7 @@ defmodule Blog.PostsTest do
       post = post_fixture()
       assert {:ok, %Post{} = post} = Posts.update_post(post, @update_attrs)
       assert post.published_at == ~N[2011-05-18 15:01:01]
-      assert post.status == "some updated status"
+      assert post.status == "published"
       assert post.text == "some updated text"
       assert post.title == "some updated title"
     end

@@ -2,7 +2,6 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
   import Ecto.Query
 
   alias Blog.Repo
-  alias Blog.Datasets.Categories.Category
   alias Blog.Datasets.Posts.Post
   alias Blog.Datasets.PostsCategories.PostsCategory
   

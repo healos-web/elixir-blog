@@ -19,6 +19,10 @@ defmodule Blog.CategoriesTest do
       category
     end
 
+    setup do
+      Blog.Categorizer.Server.clear_index
+    end
+
     test "list_categories/0 returns all categories" do
       category = category_fixture()
       assert Categories.list_categories() == [category]

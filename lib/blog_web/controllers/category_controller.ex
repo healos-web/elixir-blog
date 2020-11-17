@@ -14,7 +14,7 @@ defmodule BlogWeb.CategoryController do
 
   def create(conn, %{"category" => category_params}) do
     with {:ok, %Category{} = category} <- Categories.create_category(category_params) do
-      Blog.Categorizer.Server.update_index(%{update_type: "add", category: category})
+      Server.update_index(%{update_type: "add", category: category})
       
       conn
       |> put_status(:created)
@@ -33,7 +33,7 @@ defmodule BlogWeb.CategoryController do
     old_category = category
 
     with {:ok, %Category{} = category} <- Categories.update_category(category, category_params) do
-      Blog.Categorizer.Server.update_index(%{update_type: "update", old_category: old_category, category: category})
+      Server.update_index(%{update_type: "update", old_category: old_category, category: category})
 
       render(conn, "show.json", category: category)
     end
@@ -43,7 +43,7 @@ defmodule BlogWeb.CategoryController do
     category = Categories.get_category!(id)
 
     with {:ok, %Category{}} <- Categories.delete_category(category) do
-      Blog.Categorizer.Server.update_index(%{update_type: "delete", category: category})
+      Server.update_index(%{update_type: "delete", category: category})
       send_resp(conn, :no_content, "")
     end
   end

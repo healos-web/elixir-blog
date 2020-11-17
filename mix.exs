@@ -57,10 +57,16 @@ defmodule Blog.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      compile: [&copy_environment_iex_exs_file/1, "compile"],
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
+  end
+
+  defp copy_environment_iex_exs_file(_) do
+    File.rm ".iex.env.exs"
+    File.copy ".iex.#{Mix.env}.exs", ".iex.env.exs"
   end
 end
