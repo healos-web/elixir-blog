@@ -36,9 +36,6 @@ defmodule Blog.Categorizer.Services.UpdateIndex do
 
   defp delete_from_keywords(index, keywords, value) do
     Enum.reduce(keywords, index, fn keyword, ind ->
-      unless ind[keyword] do
-        require IEx; IEx.pry
-      end
       Map.put(ind, keyword, List.delete(ind[keyword], value))
     end)
   end
