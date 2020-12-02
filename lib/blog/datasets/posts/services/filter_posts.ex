@@ -13,30 +13,30 @@ defmodule Blog.Datasets.Posts.Services.FilterPosts do
     Enum.reduce(
       Map.keys(params),
       query,
-      fn filter, acc_query -> apply_filter(acc_query, params[filter], %{filter: filter}) end
+      fn filter, acc_query -> apply_filter(acc_query, params[filter], filter) end
     )
   end
 
-  defp apply_filter(query, value, %{filter: "title"}) do
+  defp apply_filter(query, value, "title") do
     from(p in query, where: ilike(p.title, ^"%#{value}%"))
   end
 
-  defp apply_filter(query, value, %{filter: "status"}) do
+  defp apply_filter(query, value, "status") do
     from(p in query, where: p.status == ^value)
   end
 
-  defp apply_filter(query, value, %{filter: "category_ids"}) do
+  defp apply_filter(query, value, "category_ids") do
     from(p in query,
          join: cat in assoc(p, :categories),
          where: cat.id in ^value)
   end
   
-  defp apply_filter(query, value, %{filter: "created_at_from"}) do
+  defp apply_filter(query, value, "created_at_from") do
     from(p in query, where: p.inserted_at >= ^value)
   end
 
 
-  defp apply_filter(query, value, %{filter: "created_at_to"}) do
+  defp apply_filter(query, value, "created_at_to") do
     from(p in query, where: p.inserted_at < ^value)
   end
 

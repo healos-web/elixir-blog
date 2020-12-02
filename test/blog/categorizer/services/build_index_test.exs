@@ -1,6 +1,5 @@
 defmodule Blog.Categorizer.Services.BuildIndexTest do
   use Blog.DataCase
-  alias Blog.Datasets.Categories.Category
   alias Blog.Categorizer.Services.BuildIndex
 
   describe "call" do

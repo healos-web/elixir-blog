@@ -13,8 +13,8 @@ defmodule Blog.Categorizer.Server do
   @doc """
   Updates the index when category added, removed or changed
   """
-  def update_index(opts) do
-    GenServer.cast(__MODULE__, {:update_index, opts})
+  def update_index(operation, opts) do
+    GenServer.cast(__MODULE__, {:update_index, operation, opts})
   end
 
   @doc """
@@ -48,8 +48,8 @@ defmodule Blog.Categorizer.Server do
   end
 
   @impl true
-  def handle_cast({:update_index, opts}, index) do
-    updated_index = Services.UpdateIndex.call(index, opts)
+  def handle_cast({:update_index, operation, opts}, index) do
+    updated_index = Services.UpdateIndex.call(operation, index, opts)
 
     {:noreply, updated_index}
   end

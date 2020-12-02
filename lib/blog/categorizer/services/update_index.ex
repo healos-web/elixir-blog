@@ -1,13 +1,13 @@
 defmodule Blog.Categorizer.Services.UpdateIndex do
-  def call(index, %{category: category, update_type: "add"}) do
+  def call(:add, index, %{category: category}) do
     add_category_to_index(index, category) 
   end
 
-  def call(index, %{old_category: old_category, category: category, update_type: "update"}) do
+  def call(:update, index, %{category: category, old_category: old_category}) do
     update_category_in_index(index, old_category, category)
   end
   
-  def call(index, %{category: category, update_type: "delete"}) do
+  def call(:delete, index, %{category: category}) do
     delete_category_from_index(index, category)
   end
 

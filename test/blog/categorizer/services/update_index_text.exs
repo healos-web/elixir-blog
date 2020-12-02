@@ -10,7 +10,7 @@ defmodule Blog.Categorizer.Services.BuildIndexTest do
     
     test "adds new category to index", context do
       new_category = Blog.Factory.insert!(:category)
-      index = UpdateIndex.call(context[:index], %{category: new_category, update_type: "add"})
+      index = UpdateIndex.call(:add, context[:index], %{category: new_category})
 
       Enum.each(new_category.keywords, fn keyword ->
         assert Enum.member?(index[keyword], new_category.id) == true
@@ -27,7 +27,7 @@ defmodule Blog.Categorizer.Services.BuildIndexTest do
     
     test "adds new category to index", %{index: index, category: category} do
       {:ok, updated_category} = Category.changeset(category, %{keywords: ["new"]}) |> Repo.update
-      updated_index = UpdateIndex.call(index, %{old_category: category, category: updated_category, update_type: "update"})
+      updated_index = UpdateIndex.call(:update, index, %{category: category, old_category: updated_category})
 
       assert Enum.member?(updated_index["old"], category.id) == false
       assert Enum.member?(updated_index["new"], category.id) == true
@@ -42,7 +42,7 @@ defmodule Blog.Categorizer.Services.BuildIndexTest do
     end
     
     test "adds new category to index", %{index: index, category: category} do
-      updated_index = UpdateIndex.call(index, %{category: category, update_type: "delete"})
+      updated_index = UpdateIndex.call(:delete, index, %{category: category})
 
       Enum.each(category.keywords, fn keyword ->
         assert Enum.member?(updated_index[keyword], category.id) == false
