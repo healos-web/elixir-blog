@@ -20,7 +20,7 @@ defmodule Blog.Factory do
   end
 
   def build(:need_moderation_category) do
-    %{ build(:category) | need_moderation: true }
+    %{build(:category) | need_moderation: true}
   end
 
   def build(factory_name, attributes) do
