@@ -2,6 +2,7 @@ defmodule Blog.CategoriesTest do
   use Blog.DataCase
 
   alias Blog.Datasets.Categories
+  alias Blog.Categorizer.Server
 
   describe "categories" do
     alias Blog.Datasets.Categories.Category
@@ -20,7 +21,7 @@ defmodule Blog.CategoriesTest do
     end
 
     setup do
-      Blog.Categorizer.Server.clear_index
+      Server.clear_index
     end
 
     test "list_categories/0 returns all categories" do

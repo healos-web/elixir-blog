@@ -6,7 +6,7 @@ defmodule Blog.Categorizer.Services.BuildIndexTest do
     test "builds correct index" do
       category_1 = Blog.Factory.insert!(:category)
       category_2 = Blog.Factory.insert!(:category)
-    
+
       index = BuildIndex.call
 
       Enum.each(category_1.keywords, fn keyword ->

@@ -3,6 +3,8 @@ defmodule Blog.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  alias Blog.Categorizer.Server
+
   use Application
 
   def start(_type, _args) do
@@ -17,8 +19,8 @@ defmodule Blog.Application do
       BlogWeb.Endpoint,
       # Start categorizer
       %{
-        id: Blog.Categorizer.Server,
-        start: {Blog.Categorizer.Server, :start_link, [[]]}
+        id: Server,
+        start: {Server, :start_link, [[]]}
       }
       
       # Start a worker by calling: Blog.Worker.start_link(arg)

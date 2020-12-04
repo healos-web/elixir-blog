@@ -4,6 +4,7 @@ defmodule BlogWeb.PostController do
   alias Blog.Datasets.Posts
   alias Blog.Datasets.Posts.Post
   alias Blog.Datasets.Posts.Services
+  alias Blog.Categorizer.Server
 
   action_fallback BlogWeb.FallbackController
 
@@ -16,7 +17,7 @@ defmodule BlogWeb.PostController do
     post_params = Map.put(post_params, "status", "draft")
 
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
-      Blog.Categorizer.Server.categorize_post(post)
+      Server.categorize_post(post)
 
       conn
       |> put_status(:created)

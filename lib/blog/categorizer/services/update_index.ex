@@ -23,14 +23,14 @@ defmodule Blog.Categorizer.Services.UpdateIndex do
     keywords_to_delete = old_category.keywords -- category.keywords
     keywords_to_add = category.keywords -- old_category.keywords
 
-    new_index = add_to_keywords(index, keywords_to_add, category.id)
-    delete_from_keywords(new_index, keywords_to_delete, category.id)
+    add_to_keywords(index, keywords_to_add, category.id)
+    |> delete_from_keywords(keywords_to_delete, category.id)
   end
 
   defp add_to_keywords(index, keywords, value) do
     Enum.reduce(keywords, index, fn keyword, ind ->
-      ind = Map.put_new(ind, keyword, [])
-      Map.put(ind, keyword, [value | ind[keyword]])
+      Map.put_new(ind, keyword, [])
+      |> Map.put(keyword, [value | ind[keyword]])
     end)
   end
 

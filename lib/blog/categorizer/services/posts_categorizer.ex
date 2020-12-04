@@ -8,8 +8,8 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
   def call(index, post) do
     keywords = Map.keys(index)
 
-    text = prepare_text(post.title <> " " <> post.text)
-    words = String.split(text)
+    words = prepare_text(post.title <> " " <> post.text)
+    |> String.split
 
     diff = words -- keywords
     matched_keywords = words -- diff
@@ -23,7 +23,9 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
   end
 
   defp prepare_text(text) do
-    String.replace(String.downcase(text), ~r/(,|\.|\!|\?|\"|\')/, " ")
+    text
+    |> String.downcase
+    |> String.replace(~r/(,|\.|\!|\?|\"|\')/, " ")
   end
 
   defp connect_categories(index, matched_keywords, post) do
