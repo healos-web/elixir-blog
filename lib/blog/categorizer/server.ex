@@ -42,21 +42,21 @@ defmodule Blog.Categorizer.Server do
 
   @impl true
   def init(_args) do
-    index = Services.BuildIndex.call
+    category_index = Services.BuildIndex.call
     
-    {:ok, index}
+    {:ok, %Index{categories: category_index}}
   end
 
   @impl true
   def handle_cast({:update_index, operation, opts}, index) do
-    updated_index = Services.UpdateIndex.call(operation, index, opts)
+    updated_categories_index = Services.UpdateIndex.call(operation, index.categories, opts)
 
-    {:noreply, updated_index}
+    {:noreply, %{index | categories: updated_categories_index}}
   end
 
   @impl true
   def handle_cast({:categorize_post, opts}, index) do
-    Services.PostsCategorizer.call(index, opts)
+    Services.PostsCategorizer.call(index.categories, opts)
 
     {:noreply, index}
   end
