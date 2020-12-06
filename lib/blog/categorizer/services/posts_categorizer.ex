@@ -51,7 +51,7 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
     if need_moderation_category do
       Post.changeset(post, %{status: "require_moderation"})
     else
-      Post.changeset(post, %{status: "published", published_at: DateTime.utc_now})
+      Post.changeset(post, %{status: "published"})
     end
     |> Repo.update
   end

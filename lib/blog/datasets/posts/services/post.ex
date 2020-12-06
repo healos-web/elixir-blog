@@ -20,19 +20,9 @@ defmodule Blog.Datasets.Posts.Post do
 
   @doc false
   def changeset(post, attrs) do
-    attrs = update_attrs(attrs)
-
     post
-    |> cast(attrs, [:title, :text, :status, :published_at])
+    |> cast(attrs, [:title, :text, :status])
     |> validate_required([:title, :text, :status])
     |> validate_inclusion(:status, ["draft", "published", "require_moderation"])
-  end
-
-  defp update_attrs(attrs) do
-    if attrs["status"] == "published" do
-      Map.put(attrs, "published_at", DateTime.utc_now)
-    else
-      attrs
-    end
   end
 end

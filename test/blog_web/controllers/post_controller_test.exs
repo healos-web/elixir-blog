@@ -42,10 +42,8 @@ defmodule BlogWeb.PostControllerTest do
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.post_path(conn, :show, id))
-
       assert %{
                "id" => id,
-               "status" => "published",
                "text" => "some text",
                "title" => "some title"
              } = json_response(conn, 200)["data"]
