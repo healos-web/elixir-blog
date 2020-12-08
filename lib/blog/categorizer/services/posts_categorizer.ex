@@ -3,6 +3,7 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
 
   alias Blog.Repo
   alias Blog.Datasets.Posts.Post
+  alias Blog.Datasets.Posts
   alias Blog.Datasets.PostsCategories.PostsCategory
   
   def call(index, post) do
@@ -50,9 +51,9 @@ defmodule Blog.Categorizer.Services.PostsCategorizer do
 
     if need_moderation_category do
       Post.changeset(post, %{status: "require_moderation"})
+      |> Repo.update
     else
-      Post.changeset(post, %{status: "published"})
+      Posts.publish(post)
     end
-    |> Repo.update
   end
 end

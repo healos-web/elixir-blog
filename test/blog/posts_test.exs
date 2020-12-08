@@ -45,7 +45,6 @@ defmodule Blog.PostsTest do
       post = post_fixture()
       assert {:ok, %Post{} = post} = Posts.update_post(post, @update_attrs)
       
-      assert Repo.get(Post, post.id).published_at != nil
       assert post.status == "published"
       assert post.text == "some updated text"
       assert post.title == "some updated title"
@@ -66,6 +65,14 @@ defmodule Blog.PostsTest do
     test "change_post/1 returns a post changeset" do
       post = post_fixture()
       assert %Ecto.Changeset{} = Posts.change_post(post)
+    end
+
+    test "publish(%Post{} = post) sets status to published and sets published_at" do
+      {:ok, post} = post_fixture()
+      |> Posts.publish
+
+      assert post.status == "published"
+      assert post.published_at != nil
     end
   end
 end

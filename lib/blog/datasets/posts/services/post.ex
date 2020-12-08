@@ -21,7 +21,7 @@ defmodule Blog.Datasets.Posts.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:title, :text, :status])
+    |> cast(attrs, [:title, :text, :status, :published_at])
     |> validate_required([:title, :text, :status])
     |> validate_inclusion(:status, ["draft", "published", "require_moderation"])
   end

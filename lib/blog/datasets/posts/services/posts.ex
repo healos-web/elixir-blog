@@ -101,4 +101,12 @@ defmodule Blog.Datasets.Posts do
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
   end
+
+  def publish(%Post{status: "published"} = post), do: {:ok, post}
+
+  def publish(%Post{} = post) do
+    post
+    |> Post.changeset(%{status: "published", published_at: DateTime.utc_now})
+    |> Repo.update()
+  end
 end
