@@ -6,7 +6,8 @@ defmodule Blog.Factory do
   def build(:post) do
     %Post{
       title: Faker.Beer.brand(),
-      text: Faker.Lorem.paragraph(1)
+      text: Faker.Lorem.paragraph(1),
+      status: "draft"
     }
   end
 

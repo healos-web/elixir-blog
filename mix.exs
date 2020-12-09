@@ -26,6 +26,7 @@ defmodule Blog.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support", "factory"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -37,7 +38,7 @@ defmodule Blog.MixProject do
       {:phoenix, "~> 1.5.6"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
-      {:faker, "~> 0.16", only: :test },
+      {:faker, "~> 0.16", only: [:test, :dev] },
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -61,6 +62,7 @@ defmodule Blog.MixProject do
     [
       compile: [&copy_environment_iex_exs_file/1, "compile"],
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
+      "ecto.seed": ["run priv/repo/seeds.exs"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
